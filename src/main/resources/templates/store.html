@@ -1,0 +1,195 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>E-commerce</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        var elems = document.querySelectorAll('select');
+        M.FormSelect.init(elems);
+
+        var sidenavElems = document.querySelectorAll('.sidenav');
+        M.Sidenav.init(sidenavElems);
+
+        var cartElem = document.querySelector('.cart-icon');
+        var cartContent = document.querySelector('.cart-content');
+
+        cartElem.addEventListener('click', function() {
+            cartContent.classList.toggle('hide');
+        });
+    });
+</script>
+<style>
+.cart-content {
+        position: relative; /* Mantieni la posizione naturale nel flusso */
+        background-color: blue !important; /* Sfondo per migliorare visibilità */
+        border: 1px solid #ccc; /* Bordo opzionale */
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); /* Effetto ombra */
+        z-index: 1000; /* Valore alto per sovrapporsi agli altri elementi */
+        color: white;
+    }
+
+    body {
+        display: flex;
+        flex-direction: column;
+        min-height: 100vh;
+    }
+    main {
+        flex: 1 0 auto;
+    }
+    img {
+        width: 25%;
+        border-radius: 5px;
+    }
+    tr, td, th {
+        text-align: center;
+    }
+    .custom {
+        width: 200px !important;
+    }
+    #totP {
+        text-align: right;
+        font-weight: bold;
+        font-size: 1.2em;
+    }
+    .card {
+        margin: 10px 0;
+    }
+    .card-title {
+        font-weight: bold;
+    }
+    .cart-icon {
+        position: fixed;
+        top: 80px; /* Spostata sotto la navbar */
+        right: 20px;
+        background-color: indigo;
+        color: white;
+        padding: 10px;
+        border-radius: 50%;
+        cursor: pointer;
+        z-index: 10;
+    }
+    .cart-content {
+        position: fixed;
+        top: 130px; /* Spostata in basso per non sovrapporsi all'icona */
+        right: 20px;
+        background-color: white;
+        border: 1px solid #ccc;
+        padding: 20px;
+        width: 300px;
+        max-height: 400px;
+        overflow-y: auto;
+        box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+        display: block;
+    }
+    .cart-content.hide {
+        display: none;
+    }
+    footer {
+        background-color: indigo;
+        color: white;
+    }
+</style>
+</head>
+<body>
+
+<!-- Navigation Bar -->
+<nav>
+    <div class="nav-wrapper indigo darken-1">
+        <a href="#" class="brand-logo">E-commerce</a>
+        <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
+        <ul class="right hide-on-med-and-down">
+            <li><a href="/">Home</a></li>
+            <li><a href="/store">Prodotti</a></li>
+        </ul>
+    </div>
+</nav>
+
+<!-- Mobile Navigation -->
+<ul class="sidenav" id="mobile-demo">
+    <li><a href="/">Home</a></li>
+    <li><a href="/store">Prodotti</a></li>
+</ul>
+
+<!-- Cart Icon -->
+<div class="cart-icon">
+    <i class="material-icons">shopping_cart</i>
+</div>
+
+<!-- Cart Content -->
+<div class="cart-content hide">
+    <p>Il tuo Carrello</p>
+    <table>
+        <thead>
+          <tr>
+              <th>Prodotto</th>
+              <th>Prezzo</th>
+              <th>Pezzi</th>
+              <th>Totale</th>
+          </tr>
+        </thead>
+<tbody>
+  <tr th:each="mobili : ${carrello}">
+    <td th:text="${mobili.nome}"></td>
+    <td>€<span th:text="${mobili.prezzo}"></span></td>
+    <td th:text="${mobili.quantita}"></td>
+    <td th:text="${mobili.quantita}*${mobili.prezzo}"></td>
+  </tr>
+</tbody>
+      </table>
+ <p id="totP">Totale Carrello= <span th:text="${totP} "></span></p>
+       <p>Scrivi la tua mail</p>
+       <form action = "/buy2" method = "post">
+      <input type = "text" name = "mail" required>
+      <label for="testToken">Test Token:</label>
+        <select id="testToken" name="token" required>
+            <option value="tok_visa">Visa Test Card</option>
+            <option value="tok_mastercard">MasterCard Test Card</option>
+            <option value="tok_amex">American Express Test Card</option>
+        </select>
+      <input type = "submit"  value = "Compra">
+      </form>
+      <form action = "/clear" method="post">
+      <input type = "submit"  value = "Svuota carrello">
+      </form>
+</div>
+<main>
+    <div class="container">
+        <h2 class="center-align">Store</h2>
+        <div class="row">
+            <div class="col s4" th:each="mobili : ${listaM}">
+                <div class="card">
+                    <div class="card-image waves-effect waves-block waves-light">
+                        <img class="activator custom" th:src="${mobili.url}" alt="Immagine prodotto">
+                    </div>
+                    <div class="card-content">
+                        <span class="card-title activator grey-text text-darken-4" th:text="${mobili.nome}"><i class="material-icons right">more_vert</i></span>
+                        <form action="/add" method="post">
+                            <div class="input-field">
+                                <input type="number" name="selected" value="0" min="1" class="validate">
+                                <input type="hidden" name="nome" th:value="${mobili.nome}">
+                            </div>
+                            <button class="btn indigo darken-1" type="submit">Aggiungi</button>
+                        </form>
+                    </div>
+                    <div class="card-reveal">
+                        <span class="card-title grey-text text-darken-4" th:text="${mobili.marca}"><i class="material-icons right">close</i></span>
+                        <p>Prezzo: €<span th:text="${mobili.prezzo}"></span></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+
+<!-- Footer -->
+<footer class="page-footer indigo darken-1">
+    <div class="center-align">© 2024 E-commerce</div>
+</footer>
+
+</body>
+</html>
