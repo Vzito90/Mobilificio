@@ -23,77 +23,7 @@
         });
     });
 </script>
-<style>
-.cart-content {
-        position: relative; /* Mantieni la posizione naturale nel flusso */
-        background-color: blue !important; /* Sfondo per migliorare visibilità */
-        border: 1px solid #ccc; /* Bordo opzionale */
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); /* Effetto ombra */
-        z-index: 1000; /* Valore alto per sovrapporsi agli altri elementi */
-        color: white;
-    }
-
-    body {
-        display: flex;
-        flex-direction: column;
-        min-height: 100vh;
-    }
-    main {
-        flex: 1 0 auto;
-    }
-    img {
-        width: 25%;
-        border-radius: 5px;
-    }
-    tr, td, th {
-        text-align: center;
-    }
-    .custom {
-        width: 200px !important;
-    }
-    #totP {
-        text-align: right;
-        font-weight: bold;
-        font-size: 1.2em;
-    }
-    .card {
-        margin: 10px 0;
-    }
-    .card-title {
-        font-weight: bold;
-    }
-    .cart-icon {
-        position: fixed;
-        top: 80px; /* Spostata sotto la navbar */
-        right: 20px;
-        background-color: indigo;
-        color: white;
-        padding: 10px;
-        border-radius: 50%;
-        cursor: pointer;
-        z-index: 10;
-    }
-    .cart-content {
-        position: fixed;
-        top: 130px; /* Spostata in basso per non sovrapporsi all'icona */
-        right: 20px;
-        background-color: white;
-        border: 1px solid #ccc;
-        padding: 20px;
-        width: 300px;
-        max-height: 400px;
-        overflow-y: auto;
-        box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
-        display: block;
-    }
-    .cart-content.hide {
-        display: none;
-    }
-    footer {
-        background-color: indigo;
-        color: white;
-    }
-</style>
+<link rel="stylesheet" href="store.css">
 </head>
 <body>
 
@@ -104,7 +34,7 @@
         <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
         <ul class="right hide-on-med-and-down">
             <li><a href="/">Home</a></li>
-            <li><a href="/store">Prodotti</a></li>
+            <li><a href="/">Prodotti</a></li>
         </ul>
     </div>
 </nav>
@@ -112,7 +42,7 @@
 <!-- Mobile Navigation -->
 <ul class="sidenav" id="mobile-demo">
     <li><a href="/">Home</a></li>
-    <li><a href="/store">Prodotti</a></li>
+    <li><a href="/">Prodotti</a></li>
 </ul>
 
 <!-- Cart Icon -->
