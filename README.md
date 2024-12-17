@@ -14,7 +14,7 @@
   - [Email Service](EmailService.java) - _provides some useful mail templates_
   - [Mobili](Mobili.java) - _is the personal computer in store class: it has model name, brand,description, price, image, quantity available in store and quantity sold. reflects the columns of the database table_
   - [MobiliA](MobiliA.java) - _is the personal computer in shopping cart class: it has model name, brand,description, price, image, quantity selected for purchase_
-  - [JdbcTemplate](JdbcTemplate.java) - _is the class containing the database queries: select, insert, delete and update quantity (to update the available number and sold number of a given pc)_
+  - [JdbcTemp](JdbcTemp.java) - _is the class containing the database queries: select, insert, delete and update quantity (to update the available number and sold number of a given pc)_
   - [MyController](MyController.java) - __
   - [MyController](MyController.java) - _a class that handles HTTP requests and responses, facilitating the interaction between the front end and the back end of the application._
 ### Html
