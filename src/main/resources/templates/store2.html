@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <title>Home - E-commerce</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            var elems = document.querySelectorAll('select');
+            M.FormSelect.init(elems);
+
+            var sidenavElems = document.querySelectorAll('.sidenav');
+            M.Sidenav.init(sidenavElems);
+
+            var cartElem = document.querySelector('.cart-icon');
+            var cartContent = document.querySelector('.cart-content');
+
+            cartElem.addEventListener('click', function() {
+                cartContent.classList.toggle('hide');
+            });
+    </script>
+    
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        var elems = document.querySelectorAll('.carousel');
+        var instances = M.Carousel.init(elems, {
+            fullWidth: true,
+            indicators: true
+        });
+    });
+    </script>
+    <link rel="stylesheet" href="store.css">
+</head>
+<body>
+
+<!-- Navigation Bar -->
+<nav>
+    <div class="nav-wrapper indigo darken-1">
+        <a href="#" class="brand-logo">E-commerce</a>
+        <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
+        <ul class="right hide-on-med-and-down">
+            <li><a href="/store">Prodotti</a></li>
+            <li><a href="/contact">Contatti</a></li>
+        </ul>
+    </div>
+</nav>
+
+<!-- Mobile Navigation -->
+<ul class="sidenav" id="mobile-demo">
+    <li><a href="/store">Prodotti</a></li>
+    <li><a href="/contact">Contatti</a></li>
+</ul>
+
+<!-- Hero Section -->
+<section class="hero-section" style="background-image: url('https://th.bing.com/th/id/R.6f1f430e240c972be881a8bdef0fb7bc?rik=J7SJ6owAQNTbdw&pid=ImgRaw&r=0'); background-size: cover; background-position: center; padding: 100px 0;">
+    <div class="container center-align white-text">
+        <h1 class="display-4">Benvenuto nel nostro E-commerce!</h1>
+        <p class="lead">Trova i prodotti per la tua casa con un click!</p>
+        <a href="/store" class="btn-large indigo darken-1">Esplora i prodotti</a>
+    </div>
+</section>
+
+<!-- Featured Categories -->
+<section class="categories-section section">
+    <div class="container">
+        <h2 class="center-align">Articoli in evidenza</h2>
+        
+    </div>
+</section>
+
+
+<!-- Carousel -->
+<main>
+    <div class="container">
+
+        <!-- Carousel -->
+        <div class="carousel carousel-slider center">
+            <div th:each="mobili : ${listaM}" class="carousel-item">
+                <img th:src="@{${mobili.url}}" alt="Immagine prodotto" id="imgC">
+                <div class="carousel-caption">
+                    <h2 th:text="${mobili.nome}"></h2>
+                    <p th:text="'Prezzo: € ' + ${mobili.prezzo}"></p>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+
+<!-- Testimonials Section -->
+<section class="testimonials-section section grey lighten-4">
+    <div class="container">
+        <h2 class="center-align">Cosa dicono i nostri clienti</h2>
+        <div class="row">
+            <div class="col s12 m4">
+                <div class="card">
+                    <div class="card-content">
+                        <p>"Prodotti fantastici e servizio impeccabile. Consigliato al 100%!"</p>
+                        <span>- Marco R.</span>
+                    </div>
+                </div>
+            </div>
+            <div class="col s12 m4">
+                <div class="card">
+                    <div class="card-content">
+                        <p>"Ottima esperienza di acquisto. Facilità di navigazione e ottimi prezzi!"</p>
+                        <span>- Laura T.</span>
+                    </div>
+                </div>
+            </div>
+            <div class="col s12 m4">
+                <div class="card">
+                    <div class="card-content">
+                        <p>"La qualità dei prodotti è davvero elevata. Non vedo l'ora di fare un altro acquisto."</p>
+                        <span>- Francesco L.</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+
+<!-- Footer -->
+<footer class="page-footer indigo darken-1">
+    <div class="container center-align">
+        <p>© 2024 E-commerce</p>
+        <a href="/contact" class="white-text">Contattaci</a>
+    </div>
+</footer>
+
+</body>
+</html>
