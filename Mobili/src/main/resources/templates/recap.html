@@ -1,0 +1,185 @@
+
+
+
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ordine Confermato - E-commerce</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <style>
+   html, body {
+            height: 100%; /* Occupa tutta l'altezza dello schermo */
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column; /* Allinea il contenuto in colonna */
+        }
+
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: #f7f7f7;
+        }
+
+        .container {
+            flex: 1; /* Espande il contenuto per occupare tutto lo spazio disponibile */
+            padding: 20px;
+        }
+
+        h3 {
+            color: #0288d1;
+            margin-top: 20px;
+        }
+
+        .btn {
+            margin-top: 20px;
+            background-color: #0288d1;
+            color: white;
+            text-transform: uppercase;
+            font-weight: bold;
+        }
+
+        .btn:hover {
+            background-color: #0277bd;
+        }
+
+        .center-align {
+            text-align: center;
+        }
+
+        .sidenav-trigger {
+            font-size: 1.5em;
+        }
+
+        .nav-wrapper {
+            padding: 0 15px;
+        }
+
+        @media screen and (max-width: 600px) {
+            h3 {
+                font-size: 1.5em;
+            }
+        }
+
+        footer.page-footer {
+            margin-top: auto; /* Forza il footer a essere sempre in fondo */
+        }
+        
+    </style>
+</head>
+
+
+<body>
+
+<nav>
+    <div class="nav-wrapper indigo darken-1">
+        <a href="#" class="brand-logo">E-commerce</a>
+        <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
+        <ul class="right hide-on-med-and-down">
+            <li><a href="/">Home</a></li>
+            <li><a href="/store">Prodotti</a></li>
+        </ul>
+    </div>
+</nav>
+
+
+<ul class="sidenav" id="mobile-demo">
+    <li><a href="/">Home</a></li>
+    <li><a href="/store">Prodotti</a></li>
+</ul>
+
+<div class="container">
+    <h3 class="center-align">Ordine Confermato</h3>
+  
+      <table>
+        <thead>
+          <tr>
+              <th>Nome prodotto</th>
+              <th>Marca</th>
+              
+              <th>Immagine</th>
+              <th>Qnt</th>
+              <th>SubTotale</th>
+          </tr>
+        </thead>
+
+<tbody>
+  
+  <tr th:each="mobili : ${carrello}">
+    <td th:text="${mobili.nome}"></td>
+    <td th:text="${mobili.marca}"></td>
+    
+    <td><img th:src="${mobili.url}" /></td>
+    <td th:text="${mobili.quantita}"> </td>
+    <td>€<span th:text="${mobili.prezzo}"></span></td>
+  </tr>
+  <tr> 
+  <th></th>
+              <th></th>
+              
+              <th></th>
+              <th></th>
+              <th>Totale: <span th:text = ${somma}></span></th>
+
+  
+   </tr>
+  
+  
+</tbody>
+      </table>
+    <p class="center-align">Grazie per il tuo acquisto! Il tuo ordine è stato confermato e verrà elaborato a breve.</p>
+    <P class="center-align"> Ricevuta del pagamento <a th:href= ${urlRicevuta}>link</a></p>
+    <div class="center-align">
+        <a href="/" class="btn waves-effect waves-light">Torna alla Home</a>
+    </div>
+</div>
+<br>
+
+<footer class="page-footer indigo darken-1">
+        <div class="center-align">© 2024 E-commerce</div>
+</footer>     
+
+</body>
+</html>
+<!-- 
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+  
+</head>
+<body>
+
+<!-- Navigation Bar 
+<nav>
+    <div class="nav-wrapper indigo darken-1">
+        <a href="#" class="brand-logo">E-commerce</a>
+        <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
+        <ul class="right hide-on-med-and-down">
+            <li><a href="/">Home</a></li>
+            <li><a href="/store">Prodotti</a></li>
+        </ul>
+    </div>
+</nav>
+
+<!-- Sidenav for Mobile
+<ul class="sidenav" id="mobile-demo">
+    <li><a href="/">Home</a></li>
+    <li><a href="/store">Prodotti</a></li>
+</ul>
+
+<div class="container">
+    <h3 class="center-align">Ordine Confermato</h3>
+    <p class="center-align">Grazie per il tuo acquisto! Il tuo ordine è stato confermato e verrà elaborato a breve.</p>
+    <div class="center-align">
+        <a href="/" class="btn waves-effect waves-light">Torna alla Home</a>
+    </div>
+</div>
+<br>
+<footer class="page-footer indigo darken-1">
+        <div class="center-align">© 2024 E-commerce</div>
+    </footer>
+</body>
+</html>-->

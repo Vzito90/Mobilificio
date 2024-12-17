@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestore Negozio</title>
+    <style>
+ 
+    body {
+            font-family: 'Roboto', Arial, sans-serif;
+            background-color: #f3f4f6;
+            color: #333;
+            margin: 0;
+            padding: 0;
+        }
+ 
+        .container {
+            max-width: 90%;
+            width: 600px;
+            margin: 40px auto;
+            padding: 20px;
+            background-color: #ffffff;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+        }
+ 
+        h3 {
+            font-size: 24px;
+            color: #2c3e50;
+            text-align: center;
+            margin-bottom: 20px;
+            border-bottom: 2px solid #3498db;
+            display: inline-block;
+            padding-bottom: 5px;
+        }
+ 
+        form {
+            margin-top: 20px;
+        }
+ 
+        form label {
+            display: block;
+            font-size: 16px;
+            margin-bottom: 8px;
+            color: #34495e;
+            font-weight: bold;
+        }
+ 
+        form input, form select {
+            width: 100%;
+            box-sizing: border-box; /* Assicura che padding e border siano inclusi nella larghezza totale */
+            padding: 12px;
+            margin-bottom: 15px;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            font-size: 16px;
+            transition: border-color 0.3s ease;
+        }
+ 
+        form input:focus, form select:focus {
+            outline: none;
+            border-color: #3498db;
+            box-shadow: 0 0 8px rgba(52, 152, 219, 0.2);
+        }
+ 
+        form input[type="submit"] {
+            background-color: #3498db;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 16px;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+        }
+ 
+        form input[type="submit"]:hover {
+            background-color: #2980b9;
+            transform: translateY(-2px);
+        }
+ 
+        form input[type="submit"]:active {
+            transform: translateY(0);
+        }
+ 
+        select {
+            cursor: pointer;
+        }
+ 
+        .section {
+            margin-bottom: 40px;
+        }
+ 
+        .section:last-of-type {
+            margin-bottom: 0;
+        }
+ 
+        @media (max-width: 480px) {
+            .container {
+                width: 95%;
+                padding: 15px;
+            }
+ 
+            h3 {
+                font-size: 20px;
+            }
+ 
+            form label {
+                font-size: 14px;
+            }
+ 
+            form input, form select {
+                font-size: 14px;
+                padding: 10px;
+            }
+ 
+            form input[type="submit"] {
+                font-size: 14px;
+            }
+        }
+ 
+    </style>
+     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script>
+    window.onload = gestoreLoad;
+    function gestoreLoad(){
+    	google.charts.load('current', {'packages':['corechart']});
+    	let data = []
+        google.charts.setOnLoadCallback(getCharts);
+    	async function getCharts() {
+    	    try {
+    	        // Effettua una richiesta fetch e attende la risposta
+    	        const response = await fetch('/lista');
+    	        // Verifica se la risposta è andata a buon fine
+    	        if (!response.ok) {
+    	            throw new Error('Network response was not ok');
+    	        }
+    	        // Converte la risposta in formato JSON e la attende
+    	         data = await response.json();
+    	        //stampare il primo oggetto della lista
+    	        
+    	         let DataArray = []
+    	         let DataArray1= []
+    	    		DataArray.push(["nome", "venduti"])
+ 					DataArray1.push(["nome", "quantita"])
+    		        for (let i = 0; i < data.length; i++) {
+    		        	DataArray.push([data[i].nome, data[i].quantita])
+    		        	DataArray1.push([data[i].nome, data[i].quantita])
+    		        }
+    		          var options = {
+    		            title: 'Dati di vendita'
+    		          };
+                       
+    		       // Converte l'array DataArray in un oggetto DataTable
+    		          var dataTable = google.visualization.arrayToDataTable(DataArray);
+        		      var dataTable1 = google.visualization.arrayToDataTable(DataArray1);    
+    		          var chart = new google.visualization.PieChart(document.getElementById('piechart'));
+    	    		  var barre = new google.visualization.BarChart(document.getElementById('chart_div'));
+    	    		  var chart1 = new google.visualization.PieChart(document.getElementById('piechart1'));
+    	    		  var barre1 = new google.visualization.BarChart(document.getElementById('chart_div1'));
+    		          chart.draw(dataTable, options);
+    		          barre.draw(dataTable, options);
+       		          chart1.draw(dataTable1, options);
+    		          barre1.draw(dataTable1, options);
+    	        // Utilizza i dati ottenuti
+    	        console.log(data);
+    	    } catch (error) {
+    	        // Gestisce eventuali errori
+    	        console.error('There was a problem:', error);
+    	    }
+    	}
+    }
+    </script>
+</head>
+<body>
+    <div class="container">
+        <div class="section">
+            <h3>Inserisci Articolo</h3>
+            <form action="/submit" method="POST">
+                <label for="nome">Inserisci il nome dell'articolo:</label>
+                <input type="text" id="nome" name="nome" required>
+ 
+                <label for="marca">Inserisci la marca dell'articolo:</label>
+                <input type="text" id="marca" name="marca" required>
+ 
+                <label for="prezzo">Inserisci il prezzo dell'articolo:</label>
+                <input type="number" id="prezzo" name="prezzo" step="0.01" required>
+ 
+                <label for="url">Inserisci la URL dell'articolo:</label>
+                <input type="text" id="url" name="url" required>
+ 
+                <input type="submit" value="Aggiungi">
+            </form>
+        </div>
+ 
+        <div class="section">
+            <h3>Aggiorna Prezzo dell'articolo</h3>
+            <form action="/updateP" method="POST">
+                <label for="nome-update">Seleziona il nome dell'articolo:</label>
+                <select id="nome-update" name="nome" required>
+                    <option th:each="mobili : ${listaM}" 
+                            th:text="${mobili.nome}" 
+                            th:value="${mobili.nome}">
+                    </option>
+                </select>
+ 
+                <label for="prezzo-update">Inserisci il nuovo prezzo dell'articolo:</label>
+                <input type="number" id="prezzo-update" name="prezzo" step="0.01" required>
+ 
+                <input type="submit" value="Aggiorna Prezzo">
+            </form>
+        </div>
+ 
+        <div class="section">
+            <h3>Aggiorna Pezzi Disponibili</h3>
+            <form action="/updateQ" method="POST">
+                <label for="nome-pezzi-update">Seleziona il nome dell'articolo:</label>
+                <select id="nome-pezzi-update" name="nome" required>
+                    <option th:each="mobili : ${listaM}" 
+                            th:text="${mobili.nome}" 
+                            th:value="${mobili.nome}">
+                    </option>
+                </select>
+ 
+                <label for="pezzi-update">Inserisci i nuovi pezzi disponibili:</label>
+                <input type="number" id="pezzi-update" name="quantita" required>
+ 
+                <input type="submit" value="Aggiorna Pezzi">
+            </form>
+        </div>
+ 
+        <div class="section">
+            <h3>Rimuovi Articolo</h3>
+            <form action="/delete" method="POST">
+                <label for="nome-delete">Seleziona il nome dell'articolo:</label>
+                <select id="nome-delete" name="nome" required>
+                    <option th:each="mobili : ${listaM}" 
+                            th:text="${mobili.nome}" 
+                            th:value="${mobili.nome}">
+                    </option>
+                </select>
+ 
+                <input type="submit" value="Rimuovi Articolo">
+            </form>
+        </div>
+        <h3>Grafici vendite</h3>
+         <div id="piechart" style="width: 100%; height: 500px;"></div>
+         <hr>
+         <div id="chart_div" style="width: 100%; height: 500px;"></div>
+       <h3>Grafici quantità</h3>
+         <div id="piechart1" style="width: 100%; height: 500px;"></div>
+         <hr>
+         <div id="chart_div1" style="width: 100%; height: 500px;"></div>
+         <hr>
+    </div>
+</body>
+</html>
+ 

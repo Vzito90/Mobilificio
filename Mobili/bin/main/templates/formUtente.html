@@ -1,0 +1,195 @@
+
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pagamento e Spedizione - E-commerce</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: #f4f6f8;
+            margin: 0;
+            padding: 0;
+        }
+
+        h3 {
+            color: #0288d1;
+            margin-top: 20px;
+        }
+
+        .container {
+            padding: 20px;
+            background: white;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            margin-top: 20px;
+        }
+
+        .input-field input[type=text], 
+        .input-field input[type=email] {
+            margin-bottom: 20px;
+        }
+
+        .btn {
+            margin-top: 20px;
+            background-color: #0288d1;
+            color: white;
+            text-transform: uppercase;
+            font-weight: bold;
+            border-radius: 4px;
+        }
+
+        .btn:hover {
+            background-color: #0277bd;
+        }
+
+        .center-align {
+            text-align: center;
+        }
+
+        .sidenav-trigger {
+            font-size: 1.5em;
+        }
+
+        .nav-wrapper {
+            padding: 0 15px;
+        }
+
+        .payment-options {
+            margin-top: 30px;
+            text-align: center;
+        }
+
+        .payment-options button {
+            background: none;
+            border: none;
+            cursor: pointer;
+            margin: 0 5px;
+        }
+
+        .payment-options img {
+            width: 70px;
+            height: auto;
+            transition: transform 0.2s ease-in-out;
+        }
+
+        .payment-options button:hover img {
+            transform: scale(1.1);
+        }
+
+        footer {
+            margin-top: 30px;
+            padding: 10px 0;
+            background-color: #0288d1;
+            color: white;
+            font-size: 14px;
+        }
+
+        @media screen and (max-width: 600px) {
+            h3 {
+                font-size: 1.5em;
+            }
+
+            .payment-options img {
+                width: 50px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<!-- Navigation Bar -->
+<nav>
+    <div class="nav-wrapper indigo darken-1">
+        <a href="#" class="brand-logo">E-commerce</a>
+        <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
+        <ul class="right hide-on-med-and-down">
+            <li><a href="/">Home</a></li>
+            <li><a href="/store">Prodotti</a></li>
+        </ul>
+    </div>
+</nav>
+
+<!-- Sidenav for Mobile -->
+<ul class="sidenav" id="mobile-demo">
+    <li><a href="/">Home</a></li>
+    <li><a href="/store">Prodotti</a></li>
+</ul>
+
+<div class="container">
+    <h3 class="center-align">Pagamento e Spedizione</h3>
+    <form action="/submitPayment" method="post">
+        <div class="row">
+            <div class="input-field col s12">
+                <input id="nome" name="nome" type="text" required>
+                <label for="nome">Nome</label>
+            </div>
+            <div class="input-field col s12">
+                <input id="indirizzo" name="indirizzo" type="text" required>
+                <label for="indirizzo">Indirizzo</label>
+            </div>
+            <div class="input-field col s12">
+                <input id="citta" name="citta" type="text" required>
+                <label for="citta">Città</label>
+            </div>
+            <div class="input-field col s12">
+                <input id="cap" name="cap" type="text" required>
+                <label for="cap">CAP</label>
+            </div>
+            <div class="input-field col s12">
+                <input id="telefono" name="telefono" type="text" required>
+                <label for="telefono">Telefono</label>
+            </div>
+            <div class="input-field col s12">
+                <input id="email" name="email" type="email" required>
+                <label for="email">Email</label>
+            </div>
+            <div class="input-field col s12">
+                <input id="carta" name="carta" type="text" required>
+                <label for="carta">Numero Carta di Credito</label>
+            </div>
+            <div class="input-field col s12">
+                <input id="scadenza" name="scadenza" type="text" required>
+                <label for="scadenza">Data di Scadenza (MM/AA)</label>
+            </div>
+            <div class="input-field col s12">
+                <input id="cvv" name="cvv" type="text" required>
+                <label for="cvv">CVV</label>
+            </div>
+        </div>
+        <div class="center-align">
+            <button class="btn waves-effect waves-light" type="submit">Paga con Carta</button>
+        </div>
+    </form>
+    
+    <div class="payment-options">
+        <h5>Altri Metodi di Pagamento</h5>
+        
+        <form action="/submitPaymentApplePay" method="post">
+            <button type="submit">
+                <img src="https://iconape.com/wp-content/uploads/1/12/Apple-Pay-Logo-0%D9%A4.png" alt="Apple Pay">
+            </button>
+        </form>
+        <form action="/submitPaymentGooglePay" method="post">
+            <button type="submit">
+                <img src="https://static.vecteezy.com/system/resources/previews/017/221/782/non_2x/google-pay-logo-transparent-free-png.png" alt="Google Pay">
+            </button>
+        </form>
+        <form action="/submitPaymentPayPal" method="post">
+            <button type="submit">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b5/PayPal.svg/512px-PayPal.svg.png" alt="PayPal">
+            </button>
+        </form>
+        
+    </div>
+</div>
+
+<footer class="page-footer indigo darken-1">
+    <div class="center-align">© 2024 E-commerce</div>
+</footer>
+
+</body>
+</html>
